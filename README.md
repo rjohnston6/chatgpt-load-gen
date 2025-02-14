@@ -2,7 +2,7 @@
 ## About
 To assist in demonstration and testing a basic Python project that executes multiple requests against a OpenWebUI API to generate a number of requests simulating a number of requests against a ChatGPT application. In the initial release a single sample message is submitted multiple times over and synchronously. To simplify use the project is containerized and allows for simply starting the container to execute a number of requests. Should multiple instances be desired the container can be started multiple times to increase the load against the API.
 
-> <!NOTE>
+> [!NOTE]
 > This is for experimentation, learning and demonstration purposes **ONLY** and is not intended for large scale test or validation for production implementations
 
 ## Built With
