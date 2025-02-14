@@ -1,4 +1,0 @@
-# Environment Variables for Docker Run
-COUNT=10
-API_KEY=YOURSUPERSECUREKEY
-API_URL=http://localhost:8000/v1
