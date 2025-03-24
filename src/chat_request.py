@@ -44,8 +44,8 @@ def ai_client(api_key, api_url):
     try:
         client = openai.OpenAI(api_key=api_key, base_url=api_url)
         return client
-    except Exception:
-        log.error("Error Connecting to Web Open WebUI API", exc_info=True)
+    except Exception as e:
+        log.error(f"Error Connecting to Web Open WebUI API {api_url} : {e}", exc_info=True)
 
 
 def make_request(client, model):
@@ -91,5 +91,5 @@ def threaded_requests(client, num_requests, model):
 
         return response_bodies
 
-    except Exception:
-        log.error("Error sending request to Open WebUI", exc_info=True)
+    except Exception as e:
+        log.error(f"Error sending request to Open WebUI. {e}", exc_info=True)
