@@ -45,7 +45,8 @@ def ai_client(api_key, api_url):
         client = openai.OpenAI(api_key=api_key, base_url=api_url)
         return client
     except Exception as e:
-        log.error(f"Error Connecting to Web Open WebUI API {api_url} : {e}", exc_info=True)
+        log.error(f"Error Connecting to Web Open WebUI API {api_url} : {e}",
+                  exc_info=True)
 
 
 def make_request(client, model):
