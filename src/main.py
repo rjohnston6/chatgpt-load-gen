@@ -32,6 +32,7 @@ __license__ = "Cisco Sample Code License, Version 1.1"
 
 
 import click
+import os
 
 from logger import logger
 import chat_request
@@ -45,11 +46,21 @@ import chat_request
 @click.option(
     "--url", default="http://localhost:8080/v1", help="URL of Open WebUI Test Server"
 )
-def main(count, key, url):
+@click.option(
+    "--model", default=None, help="Enter the path for the LLM used"
+)
 
+
+def main(count, key, url, model):
     # Define API Key and URL for Open WebUI
     OPENAI_API_KEY = key
     OPENAI_API_BASE = url
+    
+    if model is None:
+        if os.environ("MODEL"):
+            model = os.environ("MODEL")
+        else:
+            raise ValueError("MODEL Environment variable or --model required.")
 
     # Create Connection to Open WebUI API
     client = chat_request.ai_client(OPENAI_API_KEY, OPENAI_API_BASE)
@@ -57,8 +68,7 @@ def main(count, key, url):
     chat_responses = chat_request.threaded_requests(client, count)
     for response in chat_responses:
         logger.warning(f"Chat-ID: {response.id}")
-        logger.info(f"Response:\n{response.choices[0].message.content}")
-
+        logger.info(f"Response:\n{response.choices[0].message.content}"
 
 if __name__ == "__main__":
     main()
