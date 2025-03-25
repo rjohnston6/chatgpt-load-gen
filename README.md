@@ -33,6 +33,7 @@ To simplify distribution and use, it is desired to be ran using a container runt
     | COUNT | 10 |
     | API_KEY | YOURSUPERSECUREKEY |
     |API_URL | http://localhost:8000/v1 |
+    | MODEL | /ai/models/NousResearch/Meta-Llama-3.1-8B-Instruct/ |
 
 3. Build the the container using your preferred container runtime
    - **Docker:**

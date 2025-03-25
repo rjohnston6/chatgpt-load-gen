@@ -45,18 +45,22 @@ def ai_client(api_key, api_url):
         client = openai.OpenAI(api_key=api_key, base_url=api_url)
         return client
     except Exception as e:
-        log.error(f"Error Connecting to Web Open WebUI API {api_url} : {e}", exc_info=True)
+        log.error(f"Error Connecting to Web Open WebUI API {api_url} : {e}",
+                  exc_info=True)
 
 
-def make_request(client):
+def make_request(client, model):
     try:
+        test_content = """"write me a random short story that
+         is 500 words and about IT."""
+
         response = client.chat.completions.create(
-            model="/ai/models/Meta-Llama-3-8B-Instruct/",
+            model=model,
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {
                     "role": "user",
-                    "content": "write me a random short story that is 500 words and about IT.",
+                    "content": test_content,
                 },
             ],
         )
@@ -66,7 +70,7 @@ def make_request(client):
         log.error(f"Error making request: {e}")
 
 
-def threaded_requests(client, num_requests):
+def threaded_requests(client, num_requests, model):
     try:
         response_bodies = []
 
@@ -75,7 +79,9 @@ def threaded_requests(client, num_requests):
         with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
             # Submit the requests to the pool
             futures = [
-                executor.submit(make_request, client) for _ in range(num_requests)
+                executor.submit(
+                    make_request,
+                    client, model) for _ in range(num_requests)
             ]
 
             # Wait for the requests to complete
